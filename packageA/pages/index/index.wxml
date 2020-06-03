@@ -1,0 +1,54 @@
+<!--index.wxml-->
+<view class="container">
+  <wxs module='filter' src='../../../utils/filter.wxs'></wxs>
+  <view class="swiper">
+    <swiper class="swiper_box" 
+      indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}"
+      interval="{{interval}}"
+      duration="{{duration}}"
+      bindchange="swiperChange"
+    >
+      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" width="100%" height="100%" />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="dots">
+      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <view class="dot{{index == swiperCurrent ? ' active':''}}"></view>
+      </block>
+    </view>
+  </view>
+  <view class="search_view" style="background:{{ scrollTop === 0 ?'-webkit-linear-gradient(top, rgba(105,195,170, 1), rgba(105,195,170, 0.3))' :( scrollTop<200 ? 'rgba(105,195,170,'+(scrollTop/400+0.3) +')' : 'rgba(105,195,170,1)')  }} ">
+    <view class="search_content">
+      <image src="/images/search-pic.png" class="search_icon" />
+      <input placeholder="请输入搜索内容" class="search_input" maxlength="30" confirm-type="搜索" bindinput='listenerSearchInput' bindconfirm='toSearch'>
+      </input>
+      <button class='search_btn' bindtap="toSearch">搜索
+      </button>
+    </view>
+  </view>
+  <view class="recommend">
+    <view class="good_box" wx:for="{{recommendList}}" wx:key="{{item._id}}" bindtap="toDetailsTap" data-id="{{item._id}}">
+      <view class="img_box">
+        <image src="{{filter.decodeUrl(item.cover)}}" class="image" mode="aspectFill" lazy-load="{{true}}" alt="" />
+      </view>
+      <view class="good_title">{{item.title}}</view>
+      <view style="display:flex;">
+          <view class="good_price">作者：{{item.author}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="loading" v-show="!lowerFlag"> 
+      <view id="ddr">
+          <view class="ddr ddr1"></view>
+          <view class="ddr ddr2"></view>
+          <view class="ddr ddr3"></view>
+          <view class="ddr ddr4"></view>
+          <view class="ddr ddr5"></view>
+          <view class="ddr_info">加载中...</view>
+      </view>
+  </view>
+</view>

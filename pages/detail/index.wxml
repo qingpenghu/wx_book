@@ -1,0 +1,37 @@
+<!-- start.wxml -->
+<view class="container">
+    <wxs module='filter' src='../../utils/filter.wxs'></wxs>
+    <view class="abstract">
+        <view class="imageBox">
+            <image class="image" src="{{goodDetail.cover}}" />
+        </view>
+        <view class="book_name">
+            <view class="name">{{goodDetail.title}}</view>
+            <view class="relevant"><text class="author">{{goodDetail.author}}</text> | {{goodDetail.cat}} | {{filter.bookNum(goodDetail.wordCount)}}</view>
+            <view class="update">{{filter.updataTime(goodDetail.updated)}}</view>
+        </view>
+    </view>
+    <view class="operation">
+        <button class="chaseUpdate chaseUpdateNo" wx:if="{{flag}}" bindtap="updataFn">- 不追了</button>
+        <button class="chaseUpdate" wx:else bindtap="updataFn">+ 追更新</button>
+        <button class="startRead"><icon type="search" size="12" color="white" /> 开始阅读</button>
+    </view>
+    <view class="book_info">
+        <view class="info_item">
+            <text class="item_tips">追书人数</text>
+            <text class="item_tips_num">{{goodDetail.latelyFollower}}</text>
+        </view>
+        <view class="info_item">
+            <text class="item_tips">读者留存率</text>
+            <text class="item_tips_num">{{goodDetail.retentionRatio}}%</text>
+        </view>
+        <view class="info_item">
+            <text class="item_tips">日更新字数</text>
+            <text class="item_tips_num">{{goodDetail.serializeWordCount}}</text>
+        </view>
+    </view>
+    <view class="book_tags" wx:if="{{goodDetail.tags.length>0}}">
+        <view class="tags_item" wx:for="{{goodDetail.tags}}" wx:key="{{index}}" style="background-color:{{tagsColor[index]}}">{{item}}</view>
+    </view>
+    <view class="book_introduction">{{goodDetail.longIntro}}</view>
+</view>

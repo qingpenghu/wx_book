@@ -1,0 +1,36 @@
+
+// 价格格式化
+function price(value) {
+    if (!isNaN(value)){
+        var num = value/100;   // 这里除以100，是因为传进来的数值单位为分，请根据自己的情况定义
+        return num.toFixed(2);
+    }else{
+        return 0;
+    }
+}
+// utf-8解码 图片路径解码
+function decodeUrl (utftext) {
+    var utftext = utftext.split("http")[1]
+    utftext = "http" + utftext
+    var string = decodeURIComponent(utftext)
+    return string;
+}
+// 书籍字数处理（以万为单位）
+function bookNum (num) {
+    if( num > 100000) {
+        num = Math.round( num/10000 )
+        return num + "万字"
+    }
+    return num + "字"
+}
+// 更新时间处理
+function updataTime (time) {
+  var date = time.split("T")
+  return date[0] +" " + date[1].split(".")[0] +" 更新"
+}
+module.exports = {
+    price : price,
+    decodeUrl:decodeUrl,
+    bookNum:bookNum,
+    updataTime:updataTime
+}
